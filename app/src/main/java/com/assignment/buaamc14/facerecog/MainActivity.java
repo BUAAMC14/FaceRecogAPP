@@ -1,5 +1,6 @@
 package com.assignment.buaamc14.facerecog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -67,7 +68,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
 
@@ -84,10 +86,6 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -98,4 +96,14 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void CameraRecog(MenuItem item) {
+        Intent intent = new Intent(this,CamRecog.class);
+        startActivity(intent);
+    }
+    public void gallaryRecog(MenuItem item) {
+        Intent intent = new Intent(this,GallaryRecog.class);
+        startActivity(intent);
+    }
+
 }

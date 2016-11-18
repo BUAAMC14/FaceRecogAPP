@@ -4,32 +4,26 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
+            android:onClick="CameraRecog"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="拍照" />
         <item
             android:id="@+id/nav_gallery"
+            android:onClick="gallaryRecog"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="从相册中选择" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="通信">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="分享" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="发送" />
         </menu>
     </item>
 
