@@ -98,11 +98,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void CameraRecog(MenuItem item) {
-        Intent intent = new Intent(this,CamRecog.class);
+        Intent intent = new Intent(this, CamRecog.class);
         startActivity(intent);
     }
+
     public void gallaryRecog(MenuItem item) {
-        Intent intent = new Intent(this,GallaryRecog.class);
+        Intent intent = new Intent(this, GallaryRecog.class);
         startActivity(intent);
     }
 

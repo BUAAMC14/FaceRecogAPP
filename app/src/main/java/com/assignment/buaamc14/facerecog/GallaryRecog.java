@@ -56,7 +56,7 @@ public class GallaryRecog extends AppCompatActivity {
                 try {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor = getContentResolver().query(selectedImage,filePathColumn,null,null,null);
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
@@ -70,7 +70,7 @@ public class GallaryRecog extends AppCompatActivity {
                             upload(btn_upload);
                         }
                     });
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -79,8 +79,8 @@ public class GallaryRecog extends AppCompatActivity {
     }
 
     public void upload(View view) {
-        Intent intent = new Intent(this,UploadActivity.class);
-        intent.putExtra("string",picturePath);
+        Intent intent = new Intent(this, UploadActivity.class);
+        intent.putExtra("string", picturePath);
         startActivity(intent);
     }
 }

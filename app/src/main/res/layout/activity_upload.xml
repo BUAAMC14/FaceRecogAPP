@@ -12,41 +12,41 @@
     tools:context="com.assignment.buaamc14.facerecog.UploadActivity">
 
     <TextView
-        android:text="识别成功/失败"
+        android:id="@+id/upload_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/upload_result"
-        android:textSize="30sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="识别成功/失败"
+        android:textSize="30sp" />
 
     <TextView
-        android:text="ID：13071079"
+        android:id="@+id/result_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_upload"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:id="@+id/result_id"
+        android:text="ID：13071079"
         android:textSize="30sp" />
 
     <TextView
-        android:text="similarity：98%"
+        android:id="@+id/result_grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:id="@+id/result_grade"
-        android:textSize="30sp"
         android:layout_below="@+id/result_id"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="similarity：98%"
+        android:textSize="30sp" />
 
     <ImageView
+        android:id="@+id/iv_upload"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/ic_menu_gallery"
-        android:id="@+id/iv_upload"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="27dp"
+        android:layout_alignEnd="@+id/result_grade"
         android:layout_below="@+id/upload_result"
-        android:layout_alignEnd="@+id/result_grade" />
+        android:layout_marginTop="27dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_menu_gallery" />
 </RelativeLayout>

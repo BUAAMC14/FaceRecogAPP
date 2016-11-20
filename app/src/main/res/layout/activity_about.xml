@@ -13,25 +13,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
-            android:text="@string/app_name"
             android:gravity="center_horizontal"
-            android:textSize="48sp"
-            android:textColor="@color/white"/>
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="48sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="GitHub: BUAAMC14\n时间：2016年11月19日\n\n作者\n\n卢嵩\n曾宇涛\n何玥\n杨健"
             android:gravity="center_horizontal"
-            android:textSize="16sp"
-            android:textColor="@color/white"/>
+            android:text="@string/about_information"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
 

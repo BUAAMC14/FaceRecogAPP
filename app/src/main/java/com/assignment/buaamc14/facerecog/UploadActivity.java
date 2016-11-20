@@ -11,6 +11,7 @@ public class UploadActivity extends AppCompatActivity {
 
     //上传的bitmap
     private Bitmap bitmap;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class UploadActivity extends AppCompatActivity {
             bitmap = BitmapFactory.decodeFile(string);
             imageView.setImageBitmap(bitmap);
         }
+
     }
 
 

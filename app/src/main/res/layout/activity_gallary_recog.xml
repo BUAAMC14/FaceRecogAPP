@@ -3,43 +3,43 @@
     android:id="@+id/choose_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    >
+    android:background="@android:color/white">
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
+        android:background="#312E3F"
         android:gravity="center"
         android:text="@string/str_gr_title"
-        android:textSize="22sp"
         android:textColor="@android:color/white"
-        android:background="#312E3F" />
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/str_gr_choose"
+        android:layout_margin="20dp"
+        android:background="#312E3F"
         android:onClick="gallery"
-        android:textSize="20sp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/str_gr_choose"
         android:textColor="@android:color/white"
-        android:background="#312E3F"/>
+        android:textSize="20sp" />
 
     <ImageView
-        android:src="@drawable/upload"
         android:id="@+id/iv_preview"
-        android:onClick="gallery"
-        android:scaleType="fitCenter"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:horizontalSpacing="5dp"
+        android:onClick="gallery"
+        android:scaleType="fitCenter"
+        android:src="@drawable/upload"
+        android:verticalSpacing="5dp" />
 
 </RelativeLayout>
