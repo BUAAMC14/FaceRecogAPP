@@ -24,8 +24,6 @@ public class UploadActivity extends AppCompatActivity {
             bitmap = BitmapFactory.decodeFile(string);
             imageView.setImageBitmap(bitmap);
         }
-
     }
-
 
 }
