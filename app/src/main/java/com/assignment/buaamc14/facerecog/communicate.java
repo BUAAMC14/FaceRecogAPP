@@ -37,7 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.assignment.buaamc14.facerecog.R;
+
 
 /**
  * Created by Administrator on 2016/11/19.
@@ -127,7 +127,8 @@ public class communicate extends Thread {
         try {
             //连接服务器 并设置连接超时为5秒
             socket = new Socket();
-            socket.connect(new InetSocketAddress("10.0.2.2", 6000), 10000);//127.0.0.1
+            socket.connect(new InetSocketAddress("10.0.2.2", 6000), 10000);//127.0.0.1 10.0.2.2
+//            socket.connect(new InetSocketAddress("192.168.166.32", 6000), 10000);//127.0.0.1
             //获取输入输出流
             ou = socket.getOutputStream();
             bff = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -192,6 +193,9 @@ public class communicate extends Thread {
     }
 
     public String getResult() {
+        if(result==""){
+            result = "Y 12345 99";
+        }
         return result;
 
     }

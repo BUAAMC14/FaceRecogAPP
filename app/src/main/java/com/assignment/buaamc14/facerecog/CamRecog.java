@@ -1,38 +1,75 @@
 package com.assignment.buaamc14.facerecog;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.SurfaceView;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class CamRecog extends Activity implements CvCameraViewListener2 {
-    private static final String TAG = "OCVSample::Activity";
 
-    private CameraBridgeViewBase mOpenCvCameraView;
-    private boolean mIsJavaCamera = true;
-    private MenuItem mItemSwitchCamera = null;
+
+    private static final String     TAG                 = "openCV_Test::Activity";
+    private static final Scalar     FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
+
+    private CameraBridgeViewBase    mOpenCvCameraView;
+
+    private Mat                    mRgba;
+    private Mat                    mGray;
+    private Mat                    mRgbaT;
+
+    private CascadeClassifier cascadeClassifier;
+
+    private float                  mRelativeFaceSize   = 0.2f;
+    private int                    mAbsoluteFaceSize   = 0;
+    private int                    ProcNumber = -1;
+    private int                    ScanSkip = 0;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS: {
-                    Log.i(TAG, "OpenCV loaded successfully");
+                    try {
+                        InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
+                        File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+                        File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+                        FileOutputStream os = new FileOutputStream(mCascadeFile);
+
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            os.write(buffer, 0, bytesRead);
+                        }
+                        is.close();
+                        os.close();
+
+                        cascadeClassifier = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+                    } catch (Exception e) {
+                        Log.e("OpenCVActivity", "Error loading cascade", e);
+                    }
                     mOpenCvCameraView.enableView();
 
                 }
@@ -92,12 +129,45 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
     }
 
     public void onCameraViewStarted(int width, int height) {
+        mRgba = new Mat(height, width, CvType.CV_8UC4);
+        mRgbaT = new Mat(height, width, CvType.CV_8UC4);
+        mGray = new Mat(height, width, CvType.CV_8UC4);
     }
 
     public void onCameraViewStopped() {
+        mRgba.release();
+        mGray.release();
+        mRgbaT.release();
     }
 
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-        return inputFrame.rgba();
+        ProcNumber = (ProcNumber + 1)%(ScanSkip+1);
+        Core.transpose(inputFrame.rgba(), mRgba);
+
+        if(ProcNumber == 0) {
+            Core.transpose(inputFrame.gray(),mGray);
+
+            int height = mGray.rows();
+            if (mAbsoluteFaceSize == 0) {
+                mAbsoluteFaceSize = Math.round(mRelativeFaceSize * height);
+            }
+
+            MatOfRect faces = new MatOfRect();
+
+            if (cascadeClassifier != null) {
+                cascadeClassifier.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                        new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+            } else {
+                Log.e(TAG, "Detection method is not selected!");
+            }
+
+            Rect[] facesArray = faces.toArray();
+            for (int i = 0; i < facesArray.length; i++)
+                Imgproc.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+
+        }
+
+        Core.transpose(mRgba,mRgbaT);
+        return mRgbaT;
     }
 }
