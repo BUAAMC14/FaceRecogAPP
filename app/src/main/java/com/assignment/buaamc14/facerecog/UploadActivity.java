@@ -21,33 +21,40 @@ public class UploadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ImageView imageView = (ImageView) findViewById(R.id.iv_upload);
         if (intent != null){
-            String string = intent.getStringExtra("string");
-            bitmap = BitmapFactory.decodeFile(string);
+            int key = intent.getIntExtra("key",0);
+            if (key == 0) {
+                bitmap = intent.getParcelableExtra("bitmap");
+            } else {
+                String string = intent.getStringExtra("string");
+                bitmap = BitmapFactory.decodeFile(string);
+            }
+
             imageView.setImageBitmap(bitmap);
 
-            // Changed here !
-            communicate Com = new communicate(bitmap);
-            Com.start();
-            String str = "";
-            str = Com.getResult();
-            try {
-                Thread.sleep(100000);
-            }catch (Exception e){
-
-            }
-            //str举例: Y 99 1234 Y说明成功,相似度99,标识符是1234
-            String words[] = str.split(" ");
-            TextView result = (TextView) findViewById(R.id.upload_result);
-            TextView ID = (TextView) findViewById(R.id.result_id);
-            TextView similarity = (TextView) findViewById(R.id.result_grade);
-            if(words[0].equals("Y")){
-                result.setText("识别成功");
-            } else {
-                result.setText("识别失败");
-            }
-
-            ID.setText("ID:"+words[1]);
-            similarity.setText("准确率："+words[2]+"%");
+            //为了测试暂时注释，调试网络功能请打开。ctrl+/可以快速注释
+//            // Changed here !
+//            communicate Com = new communicate(bitmap);
+//            Com.start();
+//            String str = "";
+//            str = Com.getResult();
+//            try {
+//                Thread.sleep(100000);
+//            }catch (Exception e){
+//
+//            }
+//            //str举例: Y 99 1234 Y说明成功,相似度99,标识符是1234
+//            String words[] = str.split(" ");
+//            TextView result = (TextView) findViewById(R.id.upload_result);
+//            TextView ID = (TextView) findViewById(R.id.result_id);
+//            TextView similarity = (TextView) findViewById(R.id.result_grade);
+//            if(words[0].equals("Y")){
+//                result.setText("识别成功");
+//            } else {
+//                result.setText("识别失败");
+//            }
+//
+//            ID.setText("ID:"+words[1]);
+//            similarity.setText("准确率："+words[2]+"%");
 
         }
     }

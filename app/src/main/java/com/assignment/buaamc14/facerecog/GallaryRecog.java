@@ -63,11 +63,11 @@ public class GallaryRecog extends AppCompatActivity {
                     cursor.close();
                     bitmap = BitmapFactory.decodeFile(picturePath);
                     iv_image.setImageBitmap(bitmap);
-                    btn_upload.setText("开始上传！");
+                    btn_upload.setText("开始识别！");
                     btn_upload.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            upload(btn_upload);
+                            use_recog(btn_upload);
                         }
                     });
                 } catch (Exception e) {
@@ -78,9 +78,24 @@ public class GallaryRecog extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //留给FaceRecognizer的接口
+    public void use_recog(View view){
+        //填写图像识别过程
+
+        //更改按钮信息及功能
+        btn_upload.setText("开始上传！");
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upload(btn_upload);
+            }
+        });
+    }
+
     public void upload(View view) {
         Intent intent = new Intent(this, UploadActivity.class);
         intent.putExtra("string", picturePath);
+        intent.putExtra("key",1);
         startActivity(intent);
     }
 }

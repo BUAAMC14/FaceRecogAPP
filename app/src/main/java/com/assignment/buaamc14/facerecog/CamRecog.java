@@ -3,10 +3,14 @@ package com.assignment.buaamc14.facerecog;
 import android.app.Activity;
 import android.content.Context;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
@@ -46,6 +50,9 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
     private int                    mAbsoluteFaceSize   = 0;
     private int                    ProcNumber = -1;
     private int                    ScanSkip = 0;
+
+    private Button btn_capture;
+    private Bitmap bitmap;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -101,6 +108,24 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
 
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        //定义拍照按钮
+        btn_capture= (Button) findViewById(R.id.btn_capture);
+        btn_capture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //此处为进行图像识别，并转向Upload的接口
+
+                Mat mat = new Mat();
+                //将mat（也就是人脸部分保存为mat，然后转为bitmap格式，具体的方法我不太清楚）
+                //bitmap = mat.tobitmap();
+
+                Intent intent = new Intent(CamRecog.this,UploadActivity.class);
+                intent.putExtra("bitmap",bitmap);
+                intent.putExtra("key",0);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

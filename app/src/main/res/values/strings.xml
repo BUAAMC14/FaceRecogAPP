@@ -9,5 +9,5 @@
     <string name="str_gr_choose">从相册中选择图片</string>
     <string name="str_gr_title">选择需要上传的图片</string>
     <string name="label_gallaryRecog">从相册中选择</string>
-    <string name="about_information">GitHub: BUAAMC14\n时间：2016年11月19日\n\n作者\n\n卢嵩\n曾宇涛\n何玥\n杨健</string>
+    <string name="about_information">GitHub: BUAAMC14\n时间：2016年11月19日\n\n作者\n卢嵩\n曾宇涛\n何玥\n杨健</string>
 </resources>

@@ -1,10 +1,6 @@
 [
     {
-        "outputFile": "E:\\Lessons\\Git\\tutorial-1-camerapreview\\openCVLibrary310\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
-        "map": []
-    },
-    {
-        "outputFile": "E:\\Lessons\\Git\\FaceRecog\\openCVLibrary310\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "outputFile": "E:\\temp\\FaceRecog\\openCVLibrary310\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": []
     }
 ]
