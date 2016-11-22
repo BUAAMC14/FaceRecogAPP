@@ -22,6 +22,7 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -41,7 +42,7 @@ import java.io.InputStream;
 public class CamRecog extends Activity implements CvCameraViewListener2 {
 
 
-    private static final String TAG = "openCV_Test::Activity";
+    private static final String TAG = "CamRecog::Activity";
     private static final Scalar FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);
 
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -49,6 +50,7 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
     private Mat mRgba;
     private Mat mGray;
     private Mat mRgbaT;
+    public Mat  mFace;
 
     private CascadeClassifier cascadeClassifier;
 
@@ -59,6 +61,7 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
 
     private Button btn_capture;
     private Bitmap bitmap;
+
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -126,12 +129,15 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
             public void onClick(View view) {
                 //此处为进行图像识别，并转向Upload的接口
 
-                Mat mat = new Mat();
+                Mat mat ;
+                Bitmap bmp;
+                mat = mFace;
+                bmp = bitmap;
                 //将mat（也就是人脸部分保存为mat，然后转为bitmap格式，具体的方法我不太清楚）
-                //bitmap = mat.tobitmap();
+                Utils.matToBitmap(mat,bmp);
 
                 Intent intent = new Intent(CamRecog.this, UploadActivity.class);
-                intent.putExtra("bitmap", bitmap);
+                intent.putExtra("bitmap", bmp);
                 intent.putExtra("key", 0);
                 startActivity(intent);
             }
@@ -203,7 +209,11 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
             Rect[] facesArray = faces.toArray();
             for (int i = 0; i < facesArray.length; i++)
                 Imgproc.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
-
+            if(facesArray.length == 0){
+                mFace = null;
+            } else {
+                mFace = mRgba.submat(facesArray[0]);
+            }
         }
 
         Core.transpose(mRgba, mRgbaT);

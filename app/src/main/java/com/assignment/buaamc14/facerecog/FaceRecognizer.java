@@ -1,16 +1,18 @@
 package com.assignment.buaamc14.facerecog;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.util.Log;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
@@ -23,7 +25,6 @@ import org.opencv.objdetect.CascadeClassifier;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import android.net.Uri;
 
@@ -32,10 +33,9 @@ import android.net.Uri;
  */
 
 public class FaceRecognizer {
+    private static final String     TAG = "FaceRecog::Activity";
 
-    private static final Scalar     FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);
     private Context                 context;
-
 
     private CascadeClassifier       cascadeClassifier;
 
@@ -44,7 +44,6 @@ public class FaceRecognizer {
 
     public FaceRecognizer(Context context){
         this.context = context;
-
         try {
             InputStream is = this.context.getResources().openRawResource(R.raw.lbpcascade_frontalface);
             File cascadeDir = this.context.getDir("cascade", Context.MODE_PRIVATE);
@@ -63,21 +62,13 @@ public class FaceRecognizer {
         } catch (Exception e) {
             Log.e("OpenCVActivity", "Error loading cascade", e);
         }
-
     }
 
 
-    public Bitmap FacePicker(Uri uri) {
+    public Bitmap FacePicker(String path) {
 
         // 由Uri得到Bitmap图
-        String picturePath;
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = this.context.getContentResolver().query(uri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        picturePath = cursor.getString(columnIndex);
-        cursor.close();
-        Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
 
         // 由bitmap图得到彩色mat对象
         Mat mRgba = new Mat(bitmap.getHeight() , bitmap.getWidth(), CvType.CV_8UC4);
@@ -109,18 +100,19 @@ public class FaceRecognizer {
 
         // 如果没有识别到人脸，则原样输出
         if(facesArray.length == 0){
+            System.out.println("I didn't find the face");
             SubMat = mRgba;
         } else {
+            System.out.println("I find the face -- num is : "+facesArray.length);
             SubMat = mRgba.submat(facesArray[0]);
         }
 
         // 最后将得到的人脸部分转换为bitmaop
-        Bitmap resultFace = null;
+        Bitmap resultFace = Bitmap.createScaledBitmap(bitmap,SubMat.width(),SubMat.height(),false);
 
         Utils.matToBitmap(SubMat,resultFace);
 
         return resultFace;
-
     }
 
 }

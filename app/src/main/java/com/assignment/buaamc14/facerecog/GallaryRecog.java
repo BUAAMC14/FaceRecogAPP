@@ -82,6 +82,9 @@ public class GallaryRecog extends AppCompatActivity {
     public void use_recog(View view){
         //填写图像识别过程
 
+        FaceRecognizer faceRecognizer = new FaceRecognizer(this);
+        bitmap = faceRecognizer.FacePicker(picturePath);
+        iv_image.setImageBitmap(bitmap);
 
         //更改按钮信息及功能
         btn_upload.setText("开始上传！");
