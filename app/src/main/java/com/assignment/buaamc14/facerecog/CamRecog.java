@@ -35,21 +35,21 @@ import java.io.InputStream;
 public class CamRecog extends Activity implements CvCameraViewListener2 {
 
 
-    private static final String     TAG                 = "openCV_Test::Activity";
-    private static final Scalar     FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
+    private static final String TAG = "openCV_Test::Activity";
+    private static final Scalar FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);
 
-    private CameraBridgeViewBase    mOpenCvCameraView;
+    private CameraBridgeViewBase mOpenCvCameraView;
 
-    private Mat                    mRgba;
-    private Mat                    mGray;
-    private Mat                    mRgbaT;
+    private Mat mRgba;
+    private Mat mGray;
+    private Mat mRgbaT;
 
     private CascadeClassifier cascadeClassifier;
 
-    private float                  mRelativeFaceSize   = 0.2f;
-    private int                    mAbsoluteFaceSize   = 0;
-    private int                    ProcNumber = -1;
-    private int                    ScanSkip = 0;
+    private float mRelativeFaceSize = 0.2f;
+    private int mAbsoluteFaceSize = 0;
+    private int ProcNumber = -1;
+    private int ScanSkip = 0;
 
     private Button btn_capture;
     private Bitmap bitmap;
@@ -109,7 +109,7 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         //定义拍照按钮
-        btn_capture= (Button) findViewById(R.id.btn_capture);
+        btn_capture = (Button) findViewById(R.id.btn_capture);
         btn_capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,9 +119,9 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
                 //将mat（也就是人脸部分保存为mat，然后转为bitmap格式，具体的方法我不太清楚）
                 //bitmap = mat.tobitmap();
 
-                Intent intent = new Intent(CamRecog.this,UploadActivity.class);
-                intent.putExtra("bitmap",bitmap);
-                intent.putExtra("key",0);
+                Intent intent = new Intent(CamRecog.this, UploadActivity.class);
+                intent.putExtra("bitmap", bitmap);
+                intent.putExtra("key", 0);
                 startActivity(intent);
             }
         });
@@ -166,11 +166,11 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
     }
 
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-        ProcNumber = (ProcNumber + 1)%(ScanSkip+1);
+        ProcNumber = (ProcNumber + 1) % (ScanSkip + 1);
         Core.transpose(inputFrame.rgba(), mRgba);
 
-        if(ProcNumber == 0) {
-            Core.transpose(inputFrame.gray(),mGray);
+        if (ProcNumber == 0) {
+            Core.transpose(inputFrame.gray(), mGray);
 
             int height = mGray.rows();
             if (mAbsoluteFaceSize == 0) {
@@ -192,7 +192,7 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
 
         }
 
-        Core.transpose(mRgba,mRgbaT);
+        Core.transpose(mRgba, mRgbaT);
         return mRgbaT;
     }
 }

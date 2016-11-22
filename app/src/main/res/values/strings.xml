@@ -3,7 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="welcome_word">欢迎使用图像识别软件，请从左边选择您需要使用的功能</string>
+    <string name="welcome_word">欢迎使用图像识别软件，请从左边选择您需要使用的功能: \n \t1.拍照功能可以进行实时的人脸识别\n\t2.你也可以从相册中选择某张图片进行人脸识别</string>
     <string name="action_about">关于</string>
     <string name="gr_imageselectbt">请选择图片</string>
     <string name="str_gr_choose">从相册中选择图片</string>
