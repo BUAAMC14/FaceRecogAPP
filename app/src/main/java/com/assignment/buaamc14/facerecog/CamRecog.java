@@ -131,20 +131,25 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
             public void onClick(View view) {
                 //此处为进行图像识别，并转向Upload的接口
 
-                Mat mat ;
-                mat = mFace;
-                Bitmap facebmp = Bitmap.createScaledBitmap(bitmap,mat.width(),mat.height(),false);
+                Mat mat = mFace;
+                Bitmap facebmp = null;
 
-                //将mat（也就是人脸部分保存为mat，然后转为bitmap格式，具体的方法我不太清楚）
-                Utils.matToBitmap(mat,facebmp);
-                iv_image = (ImageView) findViewById(R.id.iv_preview);
-                iv_image.setImageBitmap(facebmp);
+                if(mat != null) {
+                    facebmp = Bitmap.createBitmap(mat.width(),mat.height(), Bitmap.Config.ARGB_8888);
 
-                UploadActivity.bitmap = facebmp;
-                Intent intent = new Intent(CamRecog.this, UploadActivity.class);
-                intent.putExtra("bitmap", "");
-                intent.putExtra("key", 0);
-                startActivity(intent);
+                    //将mat（也就是人脸部分保存为mat，然后转为bitmap格式，具体的方法我不太清楚）
+                    Utils.matToBitmap(mat, facebmp);
+                    iv_image = (ImageView) findViewById(R.id.iv_preview);
+                    iv_image.setImageBitmap(facebmp);
+
+                    UploadActivity.bitmap = facebmp;
+                    Intent intent = new Intent(CamRecog.this, UploadActivity.class);
+                    intent.putExtra("bitmap", "");
+                    intent.putExtra("key", 0);
+                    startActivity(intent);
+
+                    
+                }
             }
         });
 
@@ -214,6 +219,7 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
             Rect[] facesArray = faces.toArray();
             for (int i = 0; i < facesArray.length; i++)
                 Imgproc.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+
             if(facesArray.length == 0){
                 mFace = mRgba;
             } else {
