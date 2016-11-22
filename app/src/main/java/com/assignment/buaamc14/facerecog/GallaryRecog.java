@@ -91,6 +91,7 @@ public class GallaryRecog extends AppCompatActivity {
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UploadActivity.bitmap = bitmap;
                 upload(btn_upload);
             }
         });
