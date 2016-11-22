@@ -58,6 +58,7 @@ public class FaceRecognizer {
             is.close();
             os.close();
 
+            System.out.println(mCascadeFile.getAbsolutePath());
             cascadeClassifier = new CascadeClassifier(mCascadeFile.getAbsolutePath());
         } catch (Exception e) {
             Log.e("OpenCVActivity", "Error loading cascade", e);

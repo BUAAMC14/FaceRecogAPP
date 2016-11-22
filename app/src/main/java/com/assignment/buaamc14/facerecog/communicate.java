@@ -38,7 +38,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-
 /**
  * Created by Administrator on 2016/11/19.
  */
@@ -93,7 +92,7 @@ public class communicate extends Thread {
         byte[] hByte = intToByte4(height);
         //图像字节
         ByteArrayOutputStream output = new ByteArrayOutputStream();//初始化一个流对象
-        img.compress(Bitmap.CompressFormat.JPEG, 50, output);//把bitmap100%高质量压缩 到 output对象里
+        img.compress(Bitmap.CompressFormat.JPEG, 100, output);//把bitmap100%高质量压缩 到 output对象里
         byte[] imgByte = output.toByteArray();//转换成功了
         //图像大小字节
         long size = imgByte.length;
@@ -127,7 +126,7 @@ public class communicate extends Thread {
         try {
             //连接服务器 并设置连接超时为5秒
             socket = new Socket();
-            socket.connect(new InetSocketAddress("10.0.2.2", 6000), 10000);//127.0.0.1 10.0.2.2
+            socket.connect(new InetSocketAddress("10.0.2.2", 6000), 10000);//127.0.0.1 10.0.2.2 192.168.1.103 172.29.28.1
 //            socket.connect(new InetSocketAddress("192.168.166.32", 6000), 10000);//127.0.0.1
             //获取输入输出流
             ou = socket.getOutputStream();
@@ -135,33 +134,38 @@ public class communicate extends Thread {
             //new MyThread2().start();
             //向服务器发送信息
             byte[] putData = convert(inputImg);
-            byte[] buf = new byte[256];
+            int K1 = 256;
+            byte[] buf = new byte[K1];
             int k = 0;
             ou.write(putData, 0, 13);
             ou.write(putData, 13, 8);
             //传输图像
             //图像字节
             ByteArrayOutputStream output = new ByteArrayOutputStream();//初始化一个流对象
-            inputImg.compress(Bitmap.CompressFormat.JPEG, 10, output);//把bitmap100%高质量压缩 到 output对象里
+            inputImg.compress(Bitmap.CompressFormat.JPEG, 100, output);//把bitmap100%高质量压缩 到 output对象里
             byte[] imgByte = output.toByteArray();//转换成功了
-            for (k = 0; k < imgByte.length / 256; k++) {
-                ou.write(imgByte, k * 256, 256);
+
+            for (k = 0; k < imgByte.length / K1; k++) {
+                ou.write(imgByte, k * K1, K1);
+                // ou.write('\n');
             }
-            ou.write(putData, k * 256, putData.length - k * 256);
+            ou.write(putData, k * K1, putData.length - k * K1);
             ou.write('\n');
             ou.flush();
             String line = null;
             buffer = "";
             byte[] Data;
+
+
             try {
                 //读取发来的服务器信息
                 if ((line = bff.readLine()) != null) {
                     buffer = line + buffer;
                 }
                 Data = buffer.getBytes();
-                ;
-            } catch (Exception ex) {
 
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
             Data = buffer.getBytes();
             result = "";
@@ -193,7 +197,7 @@ public class communicate extends Thread {
     }
 
     public String getResult() {
-        if(result==""){
+        if (result == "") {
             result = "Y 12345 99";
         }
         return result;

@@ -8,12 +8,12 @@
         android:normalScreens="true"
         android:resizeable="true"
         android:smallScreens="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -28,7 +28,6 @@
     <uses-feature
         android:name="android.hardware.camera.front.autofocus"
         android:required="false" />
-
 
     <application
         android:allowBackup="true"
@@ -48,18 +47,23 @@
         </activity>
         <activity
             android:name=".CamRecog"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation"  />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".GallaryRecog"
             android:label="@string/label_gallaryRecog" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".UploadActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".UploadActivity" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".FaceRecogCore"></activity>
     </application>
 
 </manifest>
