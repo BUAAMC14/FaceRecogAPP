@@ -49,4 +49,12 @@
         app:srcCompat="@drawable/ic_menu_gallery"
         android:layout_below="@+id/upload_result"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="刷新结果"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn_refresh" />
 </RelativeLayout>

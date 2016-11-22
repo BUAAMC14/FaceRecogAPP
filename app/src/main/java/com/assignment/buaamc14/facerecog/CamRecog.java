@@ -50,7 +50,7 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
     private Mat mGray;
     private Mat mRgbaT;
 
-    private CascadeClassifier cascadeClassifier;
+    public CascadeClassifier cascadeClassifier;
 
     private float mRelativeFaceSize = 0.2f;
     private int mAbsoluteFaceSize = 0;
@@ -132,7 +132,6 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
 
                 Intent intent = new Intent(CamRecog.this, UploadActivity.class);
                 intent.putExtra("bitmap", bitmap);
-                intent.putExtra("key", 0);
                 startActivity(intent);
             }
         });

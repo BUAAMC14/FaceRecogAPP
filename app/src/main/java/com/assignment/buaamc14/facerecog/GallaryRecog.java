@@ -26,6 +26,7 @@ public class GallaryRecog extends AppCompatActivity {
     private Button btn_upload;
     private Bitmap bitmap;
     private String picturePath;
+    private Uri selectedImage;
 
     private File tempFile;
 
@@ -54,7 +55,7 @@ public class GallaryRecog extends AppCompatActivity {
             // 从相册返回的数据
             if (data != null) {
                 try {
-                    Uri selectedImage = data.getData();
+                    selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     cursor.moveToFirst();
@@ -79,10 +80,11 @@ public class GallaryRecog extends AppCompatActivity {
     }
 
     //留给FaceRecognizer的接口
-    public void use_recog(View view){
+    public void use_recog(View view) {
         //填写图像识别过程
 
-
+//        FaceRecogCore faceRecognizer = new FaceRecogCore();
+//        bitmap = faceRecognizer.FacePicker(picturePath);
         //更改按钮信息及功能
         btn_upload.setText("开始上传！");
         btn_upload.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +96,9 @@ public class GallaryRecog extends AppCompatActivity {
     }
 
     public void upload(View view) {
-        Intent intent = new Intent(this, UploadActivity.class);
-        intent.putExtra("string", picturePath);
-        intent.putExtra("key",1);
+        Intent intent = new Intent(GallaryRecog.this, UploadActivity.class);
+        UploadActivity.bitmap = bitmap;
+        intent.putExtra("key", 1);
         startActivity(intent);
     }
 }
