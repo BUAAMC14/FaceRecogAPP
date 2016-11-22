@@ -17,31 +17,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="等待同步"
+        android:text="等待接受结果"
         android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/result_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_upload"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="ID：XXXXX"
-        android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/result_grade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/result_id"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="similarity：未同步"
-        android:textSize="30sp" />
 
     <ImageView
-        android:id="@+id/iv_upload"
+        android:id="@+id/iv_register"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="34dp"
@@ -54,7 +36,30 @@
         android:text="刷新结果"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/btn_register_result"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/btn_refresh" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="21dp" />
+
+    <Button
+        android:text="上传"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_register_result"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="51dp"
+        android:id="@+id/btn_register_upload" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/et_register_ID"
+        android:hint="在此输入上传的ID"
+        android:layout_above="@+id/btn_register_result"
+        android:layout_alignStart="@+id/iv_register"
+        android:layout_marginBottom="31dp"
+        android:text="5" />
 </RelativeLayout>

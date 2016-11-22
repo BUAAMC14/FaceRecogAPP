@@ -147,8 +147,6 @@ public class CamRecog extends Activity implements CvCameraViewListener2 {
                     intent.putExtra("bitmap", "");
                     intent.putExtra("key", 0);
                     startActivity(intent);
-
-                    
                 }
             }
         });

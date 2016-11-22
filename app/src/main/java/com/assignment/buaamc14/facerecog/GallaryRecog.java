@@ -92,7 +92,11 @@ public class GallaryRecog extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 UploadActivity.bitmap = bitmap;
-                upload(btn_upload);
+                if(MainActivity.flag == 0)
+                    upload(btn_upload);
+                else
+                    register(btn_upload);
+
             }
         });
     }
@@ -101,6 +105,12 @@ public class GallaryRecog extends AppCompatActivity {
         Intent intent = new Intent(this, UploadActivity.class);
         intent.putExtra("string", picturePath);
         intent.putExtra("key",1);
+        startActivity(intent);
+    }
+
+    public void register(View view) {
+        Intent intent =new Intent(this, RegisterActivity.class);
+        intent.putExtra("string",picturePath);
         startActivity(intent);
     }
 }

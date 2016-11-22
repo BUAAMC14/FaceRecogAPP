@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "Main::Activity";
     public static CascadeClassifier cascadeClassifier;
+
+    public static int flag = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                flag = 1;
+                Intent intent = new Intent(MainActivity.this,GallaryRecog.class);
+                startActivity(intent);
             }
         });
 
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
+            flag = 0;
             startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
@@ -112,11 +116,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void CameraRecog(MenuItem item) {
+        flag = 0;
         Intent intent = new Intent(this, CamRecog.class);
         startActivity(intent);
     }
 
     public void gallaryRecog(MenuItem item) {
+        flag = 0;
         Intent intent = new Intent(this, GallaryRecog.class);
         startActivity(intent);
     }

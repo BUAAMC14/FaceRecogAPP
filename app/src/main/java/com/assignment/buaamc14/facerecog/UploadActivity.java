@@ -21,6 +21,7 @@ public class UploadActivity extends AppCompatActivity {
     private communicate Com;
     private TextView result, ID, similarity;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,14 +66,6 @@ public class UploadActivity extends AppCompatActivity {
             result = (TextView) findViewById(R.id.upload_result);
             ID = (TextView) findViewById(R.id.result_id);
             similarity = (TextView) findViewById(R.id.result_grade);
-            if (words[0].equals("Y")) {
-                result.setText("识别成功");
-            } else {
-                result.setText("识别失败");
-            }
-
-            ID.setText("ID:" + words[1]);
-            similarity.setText("准确率：" + words[2] + "%");
 
         }
     }

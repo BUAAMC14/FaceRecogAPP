@@ -37,6 +37,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static com.assignment.buaamc14.facerecog.MainActivity.flag;
+
 
 /**
  * Created by Administrator on 2016/11/19.
@@ -101,9 +103,23 @@ public class communicate extends Thread {
         int totalSize = 21 + (int) size;
         byte[] putData = new byte[totalSize];
         for (int i = 0; i < 21; ++i) {
-            if (i <= 4 && i >= 0) {
+            if (i == 0) {
+                if(flag == 0)
+                    putData[i] = 0;
+                else
+                    putData[i] = 1;
+            }
+            else if (i < 4 && i >= 1) {
                 putData[i] = 0;
-            } else if (i <= 8 && i >= 5) {
+            } else if (i == 4) {
+                if (flag == 1) {
+                    putData[4] = (byte) RegisterActivity.user_ID;
+//                    putData[4] = 0;
+                }
+                else
+                    putData[4] = 0;
+            }
+            else if (i <= 8 && i >= 5) {
                 putData[i] = wByte[i - 5];
             } else if (i <= 12 && i >= 9) {
                 putData[i] = hByte[i - 9];
@@ -111,7 +127,6 @@ public class communicate extends Thread {
                 putData[i] = imgSize[i - 13];
             }
         }
-
         return putData;
     }
 
@@ -126,7 +141,7 @@ public class communicate extends Thread {
         try {
             //连接服务器 并设置连接超时为5秒
             socket = new Socket();
-            socket.connect(new InetSocketAddress("10.0.2.2", 6000), 10000);//127.0.0.1 10.0.2.2 192.168.1.103 172.29.28.1
+            socket.connect(new InetSocketAddress("172.29.28.1", 6000), 10000);//127.0.0.1 10.0.2.2 192.168.1.103 172.29.28.1
 //            socket.connect(new InetSocketAddress("192.168.166.32", 6000), 10000);//127.0.0.1
             //获取输入输出流
             ou = socket.getOutputStream();
@@ -147,7 +162,6 @@ public class communicate extends Thread {
 
             for (k = 0; k < imgByte.length / K1; k++) {
                 ou.write(imgByte, k * K1, K1);
-                // ou.write('\n');
             }
             ou.write(putData, k * K1, putData.length - k * K1);
             ou.write('\n');
@@ -168,18 +182,27 @@ public class communicate extends Thread {
                 ex.printStackTrace();
             }
             Data = buffer.getBytes();
+//            Data[0] = 0;
+//            Data[1] = 100;
+//            Data[2] = 0;
+//            Data[3] = 0;
+//            Data[4] = 0;
+//            Data[5] = 1;
+
             result = "";
-            if (Data[0] == 0) {
+            if (Data[0] == 1) {
                 result += "N";
             } else {
                 result += "Y";
             }
             result += " ";
-            result += Data[1];
+            result += Data[5];
             result += " ";
-            for (int i = 2; i <= 5; ++i) {
-                result += Data[i];
-            }
+            result += Data[1];
+//            for (int i = 2; i <= 5; ++i) {
+//                result += Data[i];
+//            }
+
 
             //关闭各种输入输出流
             bff.close();
