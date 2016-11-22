@@ -82,6 +82,7 @@ public class GallaryRecog extends AppCompatActivity {
     public void use_recog(View view){
         //填写图像识别过程
 
+
         //更改按钮信息及功能
         btn_upload.setText("开始上传！");
         btn_upload.setOnClickListener(new View.OnClickListener() {
